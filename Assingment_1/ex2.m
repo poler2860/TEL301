@@ -16,19 +16,25 @@ xa3 = 5*cos(24*pi*Ts3) - 2*sin(1.5*pi*Ts3);
 figure;
 subplot(3,1,1);
 plot(t,xt);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
 
 subplot(3,1,2);
 stem(Ts1,xa1);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('sampling with Ts1 = 1/48');
 
 subplot(3,1,3);
 plot(Ts1,xa1);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('After sampling with Ts1 = 1/48');
 
@@ -36,19 +42,25 @@ title('After sampling with Ts1 = 1/48');
 figure;
 subplot(3,1,1);
 plot(t,xt);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
 
 subplot(3,1,2);
 stem(Ts2,xa2);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('sampling with Ts2 = 1/24');
 
 subplot(3,1,3);
 plot(Ts2,xa2);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('After sampling with Ts2 = 1/24');
 
@@ -56,19 +68,25 @@ title('After sampling with Ts2 = 1/24');
 figure;
 subplot(3,1,1);
 plot(t,xt);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
 
 subplot(3,1,2);
 stem(Ts3,xa3);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('sampling with Ts3 = 1/12');
 
 subplot(3,1,3);
 plot(Ts3,xa3);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('After sampling with Ts3 = 1/12');
 
@@ -80,19 +98,25 @@ xa0 = 5*cos(24*pi*Ts0) - 2*sin(1.5*pi*Ts0);
 figure;
 subplot(3,1,1);
 plot(t,xt);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
 
 subplot(3,1,2);
 stem(Ts0,xa0);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('sampling with Ts0 = 1/As');
 
 subplot(3,1,3);
 plot(Ts0,xa0);
-ylim([-7 7]);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
 grid on;
 title('After sampling with Ts0 = 1/As');
 
