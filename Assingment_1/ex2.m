@@ -5,6 +5,16 @@ dt = 0.01*10^(-3);
 t = dt:dt:500*10^(-3)-dt;
 xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t);
 
+%---------------Print graph-------------------
+figure;
+plot(t,xt);
+axis([0 0.5 -7 7]);
+xlabel('time (s)');
+ylabel('Amplitude');
+grid on;
+title('x(t)=5cos(24*pi*t)-2sin(1.5*pi*t)');\
+hold off;
+
 dTs1 = 1/48; Ts1 = dTs1:dTs1:500*10^(-3)-dTs1 ;
 dTs2 = 1/24; Ts2 = dTs2:dTs2:500*10^(-3)-dTs2 ;
 dTs3 = 1/12; Ts3 = dTs3:dTs3:500*10^(-3)-dTs3 ;
