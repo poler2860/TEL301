@@ -96,12 +96,3 @@ ylim([-7 7]);
 grid on;
 title('After sampling with Ts0 = 1/As');
 
-%=========================================================
-%3
-
-%%%xt3 = 10*cos(2*pi*20*t)-4*sin(2*pi*40*t+5);
-
-%3-B
-f = 5l; %we are team number 51
-xt3b1 = sin(2*pi*f0*t+f);
-
