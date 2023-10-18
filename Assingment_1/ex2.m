@@ -14,109 +14,56 @@ xa2 = 5*cos(24*pi*Ts2) - 2*sin(1.5*pi*Ts2);
 xa3 = 5*cos(24*pi*Ts3) - 2*sin(1.5*pi*Ts3);
 %------------first sampling--------------
 figure;
-subplot(3,1,1);
-plot(t,xt);
+plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
 xlabel('time (s)');
 ylabel('Amplitude');
 grid on;
-title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
-
-subplot(3,1,2);
-stem(Ts1,xa1);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('sampling with Ts1 = 1/48');
-
-subplot(3,1,3);
-plot(Ts1,xa1);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('After sampling with Ts1 = 1/48');
-
+hold on;
+title('a) Ts = 1/48');
+stem(Ts1,xa1, '-r');
+plot(Ts1,xa1,'-g');
+legend('x(t)','Sampling with Ts=1/48','Recover');
+hold off;
 %------------second sampling--------------
 figure;
-subplot(3,1,1);
-plot(t,xt);
+plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
 xlabel('time (s)');
 ylabel('Amplitude');
 grid on;
-title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
-
-subplot(3,1,2);
-stem(Ts2,xa2);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('sampling with Ts2 = 1/24');
-
-subplot(3,1,3);
-plot(Ts2,xa2);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('After sampling with Ts2 = 1/24');
-
+hold on;
+stem(Ts2,xa2,'-r');
+title('b) Ts = 1/24');
+plot(Ts2,xa2,'-g');
+legend('x(t)','Sampling with Ts=1/24','Recover');
+hold off;
 %------------third sampling--------------
 figure;
-subplot(3,1,1);
-plot(t,xt);
+plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
 grid on;
-title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
-
-subplot(3,1,2);
-stem(Ts3,xa3);
+hold on;
+title('c) Ts = 1/12');
+stem(Ts3,xa3,'-r');
 axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('sampling with Ts3 = 1/12');
-
-subplot(3,1,3);
-plot(Ts3,xa3);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('After sampling with Ts3 = 1/12');
-
+plot(Ts3,xa3,'-g');
+legend('x(t)','Sampling with Ts=1/12','Recover');
+hold off;
 %----sampling with Ts form team number-----
 As = 51; %we are team number 51
 dTs0 = 1/As; Ts0 = dTs0:dTs0:500*10^(-3)-dTs0 ;
 xa0 = 5*cos(24*pi*Ts0) - 2*sin(1.5*pi*Ts0);
 
 figure;
-subplot(3,1,1);
-plot(t,xt);
+plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
 xlabel('time (s)');
 ylabel('Amplitude');
 grid on;
-title('xt = 5*cos(24*pi*t) - 2*sin(1.5*pi*t)');
-
-subplot(3,1,2);
-stem(Ts0,xa0);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('sampling with Ts0 = 1/As');
-
-subplot(3,1,3);
-plot(Ts0,xa0);
-axis([0 0.5 -7 7]);
-xlabel('time (s)');
-ylabel('Amplitude');
-grid on;
-title('After sampling with Ts0 = 1/As');
-
+hold on;
+title('d) Ts = 1/51 , 51 is the number of the team');
+stem(Ts0,xa0,'-r');
+plot(Ts0,xa0,'-g');
+legend('x(t)','Sampling with Ts=1/51','Recover');
+hold off;
