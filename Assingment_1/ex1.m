@@ -9,8 +9,8 @@ figure(1);
 subplot(2,1,1)
 stem(n1,x1);
 axis([-6 6 0 150]);
-xlabel("time");
-ylabel("amplitude");
+xlabel("time(sec)");
+ylabel("Amplitude");
 title("Discrete-Time exponential signal");
 grid on;
 
@@ -22,7 +22,7 @@ subplot(2,1,2)
 stem(n2,x2);
 axis([-1 11 -2.5 2.5]);
 title('Discrete-Time cosine Signal');
-xlabel('time');
+xlabel('time(sec)');
 ylabel('Amplitude');
 grid on;
 
@@ -50,7 +50,7 @@ subplot(2,1,1);
 stem(n_conv,X);
 axis([-1 20 -410 410]);
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 grid on;
 title('Convolution of Two Signals without conv function');
 
@@ -60,7 +60,7 @@ subplot(2,1,2);
 stem(n_conv, X3);
 axis([-1 20 -410 410]);
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 grid on;
 title('Convolution of Two Signals with conv function');
 
@@ -73,7 +73,7 @@ subplot(2,1,1)
 stem(t1,y1);
 axis([-16 11 0 1.5]);
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 title('Signal y1');
 grid on;
 
@@ -83,7 +83,7 @@ subplot(2,1,2)
 stem(t2,y2);
 axis([-16 16 0 25]);
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 title('Signal y2');
 grid on;
 
@@ -105,14 +105,14 @@ fy2 = fft([y2, zeros(1, N - N2)]);
 figure(4)
 subplot(2,1,1);
 stem(fy1);
-xlabel('frequency');
+xlabel('frequency(Hz)');
 ylabel('Amplitude');
 grid on;
 title('Fourier Tranformation of signal y1');
 
 subplot(2,1,2);
 stem(fy2);
-xlabel('frequency');
+xlabel('frequency(Hz)');
 ylabel('Amplitude');
 grid on;
 title('Fourier Tranformation of signal y2');
@@ -125,14 +125,14 @@ figure(5)
 subplot(2,1,1)
 stem(n_conv1,Y,'-r');
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 grid on;
 title('Convolution of Two Signals in time');
 
 subplot(2,1,2)
 stem(n_conv1,y_mult, '-r');
 ylabel('Amplitude'); 
-xlabel('time'); 
+xlabel('time(sec)'); 
 grid on;
 title('Convolution of Two Signals after multiplication in frequency');
 
