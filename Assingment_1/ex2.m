@@ -53,6 +53,8 @@ figure;
 plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
 grid on;
+xlabel('time (s)');
+ylabel('Amplitude');
 hold on;
 title('c) Ts = 1/12');
 stem(Ts3,xa3,'-r');
