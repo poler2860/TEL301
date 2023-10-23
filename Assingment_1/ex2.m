@@ -12,7 +12,7 @@ axis([0 0.5 -7 7]);
 xlabel('time (s)');
 ylabel('Amplitude');
 grid on;
-title('x(t)=5cos(24*pi*t)-2sin(1.5*pi*t)');\
+title('x(t)=5cos(24*pi*t)-2sin(1.5*pi*t)');
 hold off;
 
 dTs1 = 1/48; Ts1 = dTs1:dTs1:500*10^(-3)-dTs1 ;
@@ -53,6 +53,8 @@ figure;
 plot(t,xt,'-b');
 axis([0 0.5 -7 7]);
 grid on;
+xlabel('time (s)');
+ylabel('Amplitude');
 hold on;
 title('c) Ts = 1/12');
 stem(Ts3,xa3,'-r');
