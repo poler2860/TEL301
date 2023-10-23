@@ -24,18 +24,20 @@ ylabel('Amplitude');
 grid on;
 
 %------------Part B------------
-n = 0:200;
 ph = 51;            
-fs = 8000;      % Sample frequency        
+fs = 8000;      % Sample frequency    
+Ts = 1/fs;
+f2 = -fs/2:fs/128:fs/2-fs/128;
+n=0:Ts:127*Ts;
 
 % Phase diagrams for frequencies 100Hz to 475Hz with 125Hz step
 i = 1;
 figure();
 for f0=100:125:475
-    x_n = sin(2*pi*(f0/fs)*n + ph);
+    x_n = sin(2*pi*(f0)*n + ph);
     y_2 = fftshift(abs(fft(x_n)));
     subplot(4,1,i);
-    stem(n, y_2);
+    stem(f2, y_2);
     title("Frequency " + f0 + "Hz");
     xlabel('Frequency (Hz)');
     ylabel("Amplitude");
@@ -47,10 +49,10 @@ end
 i = 1;
 figure();
 for f0=7525:125:7900
-    x_n = sin(2*pi*(f0/fs)*n + ph);
+    x_n = sin(2*pi*(f0)*n + ph);
     y_2 = fftshift(abs(fft(x_n)));
     subplot(4,1,i);
-    stem(n, y_2);
+    stem(f2, y_2);
     title("Frequency " + f0 + "Hz");
     xlabel('Frequency (Hz)');
     ylabel("Amplitude");
