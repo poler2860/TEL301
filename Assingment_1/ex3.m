@@ -1,27 +1,43 @@
+close all; clear;
 %------------Part A------------
-SR1 = 1200;
-n1 = 0:128;
-x_1 = 10*cos(2*pi*(20/SR1)*n1) - 4*sin(2*pi*(40/SR1)*n1+5);
+Fs = 600; % Sampling frequency
+T = 1/Fs; % Sampling period
+n = 128; % number of samples
 
+t = (0:n-1) * T;
+
+% Define the signal x(t)
+xt = 10*cos(2*pi*20*t) - 4*sin(2*pi*40*t + 5);
+
+% Compute the two-sided spectrum using FFT
+X = fftshift(abs(fft(xt)));
+
+% Define the frequency axis
+f = Fs*(-n/2:(n/2-1))/n;
+
+% Plot the two-sided spectrum
 figure();
-stem(n1,x_1);
-xlabel("Hz");
-ylabel("Amplitude");
+plot(f, X);
+title('Two-Sided Amplitude Spectrum of x(t)');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
 grid on;
 
 %------------Part B------------
-n = 0:100;
+n = 0:200;
 ph = 51;            
-fs = 8000;          
+fs = 8000;      % Sample frequency        
 
 % Phase diagrams for frequencies 100Hz to 475Hz with 125Hz step
 i = 1;
 figure();
 for f0=100:125:475
     x_n = sin(2*pi*(f0/fs)*n + ph);
+    y_2 = fftshift(abs(fft(x_n)));
     subplot(4,1,i);
-    stem(n, x_n);
+    stem(n, y_2);
     title("Frequency " + f0 + "Hz");
+    xlabel('Frequency (Hz)');
     ylabel("Amplitude");
     grid on;
     i = i + 1;
@@ -32,9 +48,11 @@ i = 1;
 figure();
 for f0=7525:125:7900
     x_n = sin(2*pi*(f0/fs)*n + ph);
+    y_2 = fftshift(abs(fft(x_n)));
     subplot(4,1,i);
-    stem(n, x_n);
+    stem(n, y_2);
     title("Frequency " + f0 + "Hz");
+    xlabel('Frequency (Hz)');
     ylabel("Amplitude");
     grid on;
     i = i + 1;
