@@ -1,17 +1,17 @@
+clc;close all;clear;
 % Parameters
 Ts = 0.2;  % Sampling period in seconds
-Fc = 2;   % Cutoff frequency in rad/sec
 Rp = 3;   % Passband ripple in dB
+fc = 1/pi;
+Wp = fc/((1/Ts)/2); 
 
-% First filter - 2nd order
+% First filter - 2nd order high-pass
 n1 = 2;
-[b1, a1] = cheby1(n1, Rp, Fc*Ts, 's');
-[num1, den1] = bilinear(b1, a1, 1/Ts);
+[b1, a1] = cheby1(n1, Rp,Wp , 'high');
 
-% Second filter - 16th order
+% Second filter - 16th order high-pass
 n2 = 16;
-[b2, a2] = cheby1(n2, Rp, Fc*Ts, 's');
-[num2, den2] = bilinear(b2, a2, 1/Ts);
+[b2, a2] = cheby1(n2, Rp, Wp, 'high');
 
 % Number of samples
 numSamples = 256;
@@ -20,10 +20,10 @@ numSamples = 256;
 frequencies = linspace(0, 1, numSamples);
 
 % Frequency response of the 2nd-order filter
-H1 = freqz(num1, den1, 2*pi*frequencies, 1/Ts);
+H1 = freqz(b1, a1, numSamples);
 
 % Frequency response of the 16th-order filter
-H2 = freqz(num2, den2, 2*pi*frequencies, 1/Ts);
+H2 = freqz(b2, a2, numSamples);
 
 % Plot the frequency responses
 figure;
@@ -31,7 +31,7 @@ plot(frequencies, 20*log10(abs(H1)), 'b', 'LineWidth', 2);
 hold on;
 plot(frequencies, 20*log10(abs(H2)), 'r', 'LineWidth', 2);
 
-title('Chebyshev Type I Filters');
+title('Chebyshev Type I High-Pass Filters');
 xlabel('Frequency (normalized)');
 ylabel('Magnitude (dB)');
 legend('2nd Order Filter', '16th Order Filter');
