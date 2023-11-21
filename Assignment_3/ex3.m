@@ -1,5 +1,6 @@
 close all; clear all; clc
 
+%a
 Rs_1 = 30; 
 Rs_2 = 50;
 Fs = 10000; %Sampling frequency
@@ -18,7 +19,7 @@ figure();
 
 figure();
 stem(n,x_n);
-xlabel('Frequency(Hz)','Fontsize',11);
+xlabel('Time(sec)','Fontsize',11);
 ylabel('Values of function', 'Fontsize',11);
 title('The first 500 samples of x(t)=1+cos(1000t)+cos(16000t)+cos(30000t)','Fontsize',11,'FontWeight','bold');
 
@@ -38,6 +39,16 @@ ylabel('Values of function', 'Fontsize',11);
 title('x(F) with lowband filter with Attenuation 30dB ','Fontsize',11,'FontWeight','bold'); 
 
 
+%b
+Ts2 = 0.2; %sampling period
+Fs2 = 1/Ts2; %sampling frequency  
+x1_n=1+cos(1.5*n)+cos(5*n);
+
+figure();
+stem(n,x1_n);
+xlabel('Time(sec)','Fontsize',11);
+ylabel('Values of function', 'Fontsize',11);
+title('The first 500 samples of x(t)=1+cos(1.5t)+cos(5t)','Fontsize',11,'FontWeight','bold');
 
 
 
@@ -47,6 +58,7 @@ title('x(F) with lowband filter with Attenuation 30dB ','Fontsize',11,'FontWeigh
 
 
 
+ 
 
 
 

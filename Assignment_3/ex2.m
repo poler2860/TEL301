@@ -1,4 +1,4 @@
-clc;close all;clear;
+clc;close all;clear all;
 % Parameters
 Ts = 0.2;  % Sampling period in seconds
 Rp = 3;   % Passband ripple in dB
