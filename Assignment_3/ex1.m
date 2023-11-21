@@ -1,3 +1,4 @@
+clear al; close all; clc
 Rs_1 = 30; 
 Rs_2 = 50;
 fs = 10000;
