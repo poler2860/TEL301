@@ -18,6 +18,7 @@ numSamples = 256;
 
 % Frequency axis in radians/sample, normalized to [0, 1]
 frequencies = linspace(0, 1, numSamples);
+ 
 
 % Frequency response of the 2nd-order filter
 H1 = freqz(b1, a1, numSamples);

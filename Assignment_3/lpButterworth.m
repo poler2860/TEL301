@@ -29,8 +29,8 @@ Ws = 2*pi*4000;
 f = linspace(0,fn,samples);
 
 hold on;
-plot(f, abs(H_a),'b',"LineStyle","-", "DisplayName", "Analog Filter");
-plot(f, abs(H_d),'r',"LineStyle",":", "DisplayName", "Digital Filter");
+plot(f, 20*log10(H_a),'b',"LineStyle","-", "DisplayName", "Analog Filter");
+plot(f, 20*log10(H_d),'r',"LineStyle",":", "DisplayName", "Digital Filter");
 
 title('Lowpass Butterworth Filter Frequency Response');
 legend("AnalogFilter", "Digital Filter");
