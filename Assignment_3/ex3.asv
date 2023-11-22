@@ -51,48 +51,22 @@ x1_n=1+cos(2*pi*f1_b*n_b*Ts)+cos(2*pi*f2_b*n_b*Ts);
 figure();
 stem(n_b,x1_n);
 xlabel('Time(sec)','Fontsize',11);
-ylabel('Amplitude', 'Fontsize',11);
+ylabel('Values of function', 'Fontsize',11);
 title('The first 500 samples of x(t)=1+cos(1.5t)+cos(5t)','Fontsize',11,'FontWeight','bold');
 
-Ts = 0.2;  % Sampling period in seconds
-Rp = 3;   % Passband ripple in dB
-fc = 1/pi;
-Wp = fc/((1/Ts)/2); 
+Xf2=fftshift(fft(x1_n));      % Fourier transform
+subplot(3,1,2);
+stem(f_axis,Xf2);
+xlabel('Frequency(Hz)','Fontsize',14);
+ylabel('Values of function', 'Fontsize',14);
+title('The Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',15,'FontWeight','bold');
 
-% First filter - 2nd order high-pass
-n1 = 2;
-[b1, a1] = cheby1(n1, Rp,Wp , 'high');
-
-% Second filter - 16th order high-pass
-n2 = 16;
-[b2, a2] = cheby1(n2, Rp, Wp, 'high');
-
-% Number of samples
-numSamples = 256;
-
-% Frequency axis in radians/sample, normalized to [0, 1]
-frequencies = linspace(0, 1, numSamples);
-
-% Frequency response of the 2nd-order filter
-H1 = freqz(b1, a1, numSamples);
-
-% Frequency response of the 16th-order filter
-H2 = freqz(b2, a2, numSamples);
-
-
-figure;
-Xf1=fftshift(fft(x1_n));      % Fourier transform
-stem(f_axis,Xf1);
-xlabel('Frequency(Hz)','Fontsize',11);
-ylabel('Amplitude', 'Fontsize',11);
-title('The Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold');
-
-figure;
-Xf1_filter=filter(b2,a2,x1_n);   % filtered Fourier transform
-stem(f_axis,Xf1_filter);
-xlabel('Frequency(Hz)','Fontsize',11);
-ylabel('Amplitude', 'Fontsize',11);
-title('The filtered Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold');
+Xf2_fil=filter(b2,a2,x1_n);   % filtered Fourier transform
+subplot(3,1,3);
+stem(f_axis,Xf2_fil);
+xlabel('Frequency(Hz)','Fontsize',14);
+ylabel('Values of function', 'Fontsize',14);
+title('The filtered Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',15,'FontWeight','bold');
 
 
 
