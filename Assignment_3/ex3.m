@@ -2,6 +2,7 @@ close all; clear all; clc
 
 %a
 Rs_1 = 30; 
+Rs_2 = 50;
 Fs = 10000; %Sampling frequency
 Ts = 1/Fs; %Sampling period
 N= 500; %Number of samples
@@ -12,8 +13,9 @@ n = 0:(N-1);
 
 x_n = 1+cos(2*pi*f1*n*Ts)+cos(2*pi*f2*n*Ts)+cos(2*pi*f3*n*Ts);
 
-figure();
-[num_d den_d]=lpButterworth(Rs_1, Fs, N);
+[num_d30 den_d30]=lpButterworth(Rs_1, Fs, N);
+
+[num_d50 den_d50]=lpButterworth(Rs_2, Fs, N);
 
 figure();
 stem(n,x_n);
@@ -30,11 +32,19 @@ ylabel('Amplitude', 'Fontsize',11);
 title('The Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold'); 
 
 figure();
-xf_filter=filter(num_d,den_d,x_n);
+xf_filter=filter(num_d30,den_d30,x_n);
 stem(f_axis,xf_filter);
 xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('x(F) with lowband filter with Attenuation 30dB ','Fontsize',11,'FontWeight','bold'); 
+
+figure();
+xf_filter2=filter(num_d50,den_d50,x_n);
+stem(f_axis,xf_filter2);
+xlabel('Frequency(Hz)','Fontsize',11);
+ylabel('Amplitude', 'Fontsize',11);
+title('x(F) with lowband filter with Attenuation 50dB ','Fontsize',11,'FontWeight','bold'); 
+
 
 
 
