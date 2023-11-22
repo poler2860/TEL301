@@ -20,12 +20,13 @@ figure;
 [num_d50 den_d50]=lpButterworth(Rs_2, Fs, N);
 
 figure();
+subplot(6,1,1);
 stem(n,x_n);
 xlabel('Time(sec)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('The first 500 samples of x(t)=1+cos(1000t)+cos(16000t)+cos(30000t)','Fontsize',11,'FontWeight','bold');
 
-figure();
+subplot(6,1,2);
 f_axis=-Fs/2:Fs/N:Fs/2-1;
 Xf=fftshift(fft(x_n));      % Fourier transform
 stem(f_axis,Xf);
@@ -33,20 +34,33 @@ xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('The Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold'); 
 
-figure();
+subplot(6,1,3);
 xf_filter=filter(num_d30,den_d30,x_n);
 stem(f_axis,xf_filter);
 xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('x(F) with lowband filter with Attenuation 30dB ','Fontsize',11,'FontWeight','bold'); 
 
-figure();
+subplot(6,1,4);
+Xf30=fftshift(fft(xf_filter));      % Fourier transform
+stem(f_axis,Xf30);
+xlabel('Frequency(Hz)','Fontsize',11);
+ylabel('Amplitude', 'Fontsize',11);
+title('The Fourier transform of x(t)=1+cos(t)+cos(5t) filtered with Attenuation 30dB ','Fontsize',11,'FontWeight','bold'); 
+
+subplot(6,1,5);
 xf_filter2=filter(num_d50,den_d50,x_n);
 stem(f_axis,xf_filter2);
 xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('x(F) with lowband filter with Attenuation 50dB ','Fontsize',11,'FontWeight','bold'); 
 
+subplot(6,1,6);
+Xf50=fftshift(fft(xf_filter2));      % Fourier transform
+stem(f_axis,Xf50);
+xlabel('Frequency(Hz)','Fontsize',11);
+ylabel('Amplitude', 'Fontsize',11);
+title('The Fourier transform of x(t)=1+cos(t)+cos(5t) filtered with Attenuation 50dB','Fontsize',11,'FontWeight','bold'); 
 
 
 
@@ -56,12 +70,13 @@ Fs2 = 1/Ts2; %sampling frequency
 f1_b = 0.75/pi;
 f2_b = 2.5/pi;
 N_b= 500; %Number of samples
-n_b = 0:(N_b-1);
+t = 0:(N_b-1);
 
-x1_n=1+cos(2*pi*f1_b*n_b*Ts)+cos(2*pi*f2_b*n_b*Ts);
+x1_n=1+cos(2*pi*f1_b*t*Ts)+cos(2*pi*f2_b*t*Ts);
 
 figure();
-stem(n_b,x1_n);
+subplot(4,1,1);
+stem(t,x1_n);
 xlabel('Time(sec)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('The first 500 samples of x(t)=1+cos(1.5t)+cos(5t)','Fontsize',11,'FontWeight','bold');
@@ -92,19 +107,28 @@ H1 = freqz(b1, a1, numSamples);
 H2 = freqz(b2, a2, numSamples);
 
 
-figure;
+
+subplot(4,1,2);
 Xf1=fftshift(fft(x1_n));      % Fourier transform
 stem(f_axis,Xf1);
 xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
 title('The Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold');
 
-figure;
+subplot(4,1,3);
+Xf1_filter=filter(b1,a1,x1_n);   % filtered Fourier transform
+stem(f_axis,Xf1_filter);
+xlabel('Frequency(Hz)','Fontsize',11);
+ylabel('Amplitude', 'Fontsize',11);
+title('The filtered Fourier transform of x(t)=1+cos(t)+cos(5t) with 2nd order filter','Fontsize',11,'FontWeight','bold');
+
+
+subplot(4,1,4);
 Xf1_filter=filter(b2,a2,x1_n);   % filtered Fourier transform
 stem(f_axis,Xf1_filter);
 xlabel('Frequency(Hz)','Fontsize',11);
 ylabel('Amplitude', 'Fontsize',11);
-title('The filtered Fourier transform of x(t)=1+cos(t)+cos(5t)','Fontsize',11,'FontWeight','bold');
+title('The filtered Fourier transform of x(t)=1+cos(t)+cos(5t) with 16th order filter','Fontsize',11,'FontWeight','bold');
 
 
 
