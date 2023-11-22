@@ -13,8 +13,10 @@ n = 0:(N-1);
 
 x_n = 1+cos(2*pi*f1*n*Ts)+cos(2*pi*f2*n*Ts)+cos(2*pi*f3*n*Ts);
 
+figure;
 [num_d30 den_d30]=lpButterworth(Rs_1, Fs, N);
 
+figure;
 [num_d50 den_d50]=lpButterworth(Rs_2, Fs, N);
 
 figure();
