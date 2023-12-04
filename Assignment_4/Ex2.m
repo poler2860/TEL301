@@ -9,20 +9,22 @@ freq = 0:0.01:0.5;
 h_hamming1 = fir1(N(1)-1, Vc/(Fs/2), 'low', hamming(N(1)));
 h_hamming2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hamming(N(2)));
 
-H_hamming1 = freqz(h_hamming1, 1, freq * 2 * pi);
-H_hamming2 = freqz(h_hamming2, 1, freq * 2 * pi);
+[H_hamming1,hamw1]=freqz(h_hamming1,N(1));
+[H_hamming2,hamw2]=freqz(h_hamming1,N(2));
+%H_hamming1 = freqz(h_hamming1, 1, freq * 2 * pi);
+%H_hamming2 = freqz(h_hamming2, 1, freq * 2 * pi);
 
 % Figure for hamming
 figure;
 sgtitle('Hamming');
 subplot(1,2,1);
-plot(freq * Fs/2, 20 * log10(abs(H_hamming1)));
+plot(hamw1,abs(H_hamming1));
 grid on;
 title('Filters Frequency Response');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude (dB)');
 subplot(1,2,2);
-plot(freq * Fs/2, 20 * log10(abs(H_hamming2)));
+plot(hamw2, abs(H_hamming2));
 grid on;
 title('Filters Frequency Response');
 xlabel('Frequency (Hz)');
@@ -33,20 +35,22 @@ ylabel('Amplitude (dB)');
 h_hanning1 = fir1(N(1)-1, Vc/(Fs/2), 'low', hanning(N(1)));
 h_hanning2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hanning(N(2)));
 
-H_hanning1 = freqz(h_hanning1, 1, freq * 2 * pi);
-H_hanning2 = freqz(h_hanning2, 1, freq * 2 * pi);
+[H_hanning1,hanw1]=freqz(h_hanning1,N(1));
+[H_hanning2,hanw2]=freqz(h_hanning1,N(2));
+%H_hanning1 = freqz(h_hanning1, 1, freq * 2 * pi);
+%H_hanning2 = freqz(h_hanning2, 1, freq * 2 * pi);
 
 % Figure for hanning
 figure;
 sgtitle('Hanning');
 subplot(1,2,1);
-plot(freq * Fs/2, 20 * log10(abs(H_hanning1)));
+plot(hanw1, abs(H_hanning1));
 grid on;
 title('Filters Frequency Response');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude (dB)');
 subplot(1,2,2);
-plot(freq * Fs/2, 20 * log10(abs(H_hanning2)));
+plot(hanw2,abs(H_hanning2));
 grid on;
 title('Filters Frequency Response');
 xlabel('Frequency (Hz)');
