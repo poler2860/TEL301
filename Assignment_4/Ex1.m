@@ -9,16 +9,15 @@ h_rect = fir1(N-1, Vc/(Fs/2), 'low', rectwin(N));
 % Filter design with hamming window
 h_hamming = fir1(N-1, Vc/(Fs/2), 'low', hamming(N));
 
-freq = 0:0.01:0.5;
-H_rectangular = freqz(h_rect, 1, freq * 2 * pi);
-H_hamming = freqz(h_hamming, 1, freq * 2 * pi);
+[H_rect,w1]=freqz(h_rect,N);
+[H_hamming,w2]=freqz(h_hamming,N);
 
 figure;
-plot(freq * Fs/2, 20 * log10(abs(H_rectangular)), 'b');
+plot(w1,abs(H_rect), 'b');
 hold on;
-plot(freq * Fs/2, 20 * log10(abs(H_hamming)), 'r--');
+plot(w2,abs(H_hamming), 'r--');
 title('Filters Frequency Response');
 xlabel('Frequency (Hz)');
-ylabel('Amplitude (dB)');
+ylabel('Magnitude (dB)');
 legend('Rectangular', 'Hamming');
 grid on;
