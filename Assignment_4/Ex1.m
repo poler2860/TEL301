@@ -13,11 +13,11 @@ h_hamming = fir1(N-1, Vc/(Fs/2), 'low', hamming(N));
 [H_hamming,w2]=freqz(h_hamming,N);
 
 figure;
-plot(w1/(2*pi),abs(H_rect), 'b');
+plot(linspace(0,1,length(w1)),20*log10(abs(H_rect)), 'b');
 hold on;
-plot(w2/(2*pi),abs(H_hamming), 'r--');
+plot(linspace(0,1,length(w2)),20*log10(abs(H_hamming)), 'r--');
 title('Filters Frequency Response');
-xlabel('Frequency (Hz)');
+xlabel('Normalize Frequency');
 ylabel('Magnitude (dB)');
 legend('Rectangular', 'Hamming');
 grid on;
