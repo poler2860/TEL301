@@ -21,11 +21,15 @@ drawFigureForFirstBullet('Hanning Fs = 100Hz',H_hanning1,hanw1,H_hanning2,hanw2)
 
 %---------------------------------------------------------------
 %second bullet
-passSingalFromFiltersWithHz(100,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
+[X1,F1,spectrum_filteredHam11, spectrum_filteredHam21, spectrum_filteredHan11, spectrum_filteredHan21]=passSingalFromFiltersWithHz(100,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
 %---------------------------------------------------------------
 %third bullet
 [h_hamming1, h_hamming2, h_hanning1, h_hanning2] = makeFilters(50,Vc,N);
-passSingalFromFiltersWithHz(50,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
+[X2,F2,spectrum_filteredHam12, spectrum_filteredHam22, spectrum_filteredHan12, spectrum_filteredHan22]=passSingalFromFiltersWithHz(50,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
+%---------------------------------------------------------------
+%draw all graphs from 2 and 3 bullter all in one figure
+drawFigureForSecondThirdBullet(2,[100;50],[F1;F2],[X1;X2],[spectrum_filteredHam11;spectrum_filteredHam12],[spectrum_filteredHam21;spectrum_filteredHam22],[spectrum_filteredHan11;spectrum_filteredHan12],[spectrum_filteredHan21;spectrum_filteredHan22]);
+
 %-------------------------!!FUNCTIONS!!-------------------------
 %function to make the filters
 function [h_hamming1, h_hamming2, h_hanning1, h_hanning2] = makeFilters(Fs,Vc,N)
@@ -45,7 +49,7 @@ function drawFigureForFirstBullet(figureTitle,yLeftPlot,xLeftPlot,yRightPlot,xRi
     grid on;title('Filters Frequency Response Ν = 41');xlabel('Normalize Frequency');ylabel('Magnitude');
 end
 %function for the second and third bullet
-function passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanning2)
+function [X,F,spectrum_filteredHam1, spectrum_filteredHam2, spectrum_filteredHan1, spectrum_filteredHan2]=passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanning2)
     Ts = 1/Fs;
     W1 = 15;
     W2 = 200;
@@ -94,4 +98,29 @@ function passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanni
     subplot(3,1,3);
     plot(F, abs(spectrum_filteredHan2),'LineWidth',2);
     grid on;title('X with filter hanning N = 41');xlabel('Frequency (Hz)'); ylabel('|Xfiltered(f)|');
+    drawFigureForSecondThirdBullet(1,[Fs],[F],[X],[spectrum_filteredHam1], [spectrum_filteredHam2], [spectrum_filteredHan1], [spectrum_filteredHan2]);
+end
+%function to draw multiplate plot in one figure
+function drawFigureForSecondThirdBullet(num,Fs,F,XF,spectrum_filteredHam1F,spectrum_filteredHam2F,spectrum_filteredHan1F,spectrum_filteredHan2F)
+    %ploting for hamming
+    figure;
+    for i = 1:num
+        subplot(num,5,1+((i-1)*5));
+        plot(F(i,1:end), abs(XF(i,1:end)),'LineWidth',2);
+        grid on;title(['Spectrum X Fs = ', num2str(Fs(i)),'Hz']);xlabel('Frequency (Hz)');ylabel('|X(f)|');
+        subplot(num,5,2+((i-1)*5));
+        plot(F(i,1:end), abs(spectrum_filteredHam1F(i,1:end)),'LineWidth',2);
+        grid on;title('X Spectrum with filter hamming N = 21');xlabel('Frequency (Hz)');ylabel('|Xfiltered(f)|');
+        subplot(num,5,3+((i-1)*5));
+        plot(F(i,1:end), abs(spectrum_filteredHam2F(i,1:end)),'LineWidth',2);
+        grid on;title('X Spectrum with filter hamming N = 41');xlabel('Frequency (Hz)');ylabel('|Xfiltered(f)|');
+
+        %ploting for hanning
+        subplot(num,5,4+((i-1)*5));
+        plot(F(i,1:end), abs(spectrum_filteredHan1F(i,1:end)),'LineWidth',2);
+        grid on;title('X Spectrum with filter hanning N = 21');xlabel('Frequency (Hz)'); ylabel('|Xfiltered(f)|');
+        subplot(num,5,5+((i-1)*5));
+        plot(F(i,1:end), abs(spectrum_filteredHan2F(i,1:end)),'LineWidth',2);
+        grid on;title('X Spectrum with filter hanning N = 41');xlabel('Frequency (Hz)'); ylabel('|Xfiltered(f)|');
+    end
 end
