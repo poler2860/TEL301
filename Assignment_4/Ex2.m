@@ -3,44 +3,46 @@ clear ; close all ; clc ;
 Vc = 0.5 * pi;
 Fs = 100;
 N = [21 , 41];
-freq = 0:0.01:0.5;
 
-% Filter design with hamming window
-h_hamming1 = fir1(N(1)-1, Vc/(Fs/2),'low',hamming(N(1)));
-h_hamming2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hamming(N(2)));
+% Make the filters
+[h_hamming1, h_hamming2, h_hanning1, h_hanning2] = makeFilters(Fs,Vc,N);
 
 [H_hamming1,hamw1]=freqz(h_hamming1,N(1));
-[H_hamming2,hamw2]=freqz(h_hamming1,N(2));
-
-% Figure for hamming
-drawFigureForFirstBullet('Hamming',H_hamming1,hamw1,H_hamming2,hamw2);
-
-% Filter design with hanning window
-h_hanning1 = fir1(N(1)-1, Vc/(Fs/2), 'low', hanning(N(1)));
-h_hanning2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hanning(N(2)));
+[H_hamming2,hamw2]=freqz(h_hamming2,N(2));
 
 [H_hanning1,hanw1]=freqz(h_hanning1,N(1));
-[H_hanning2,hanw2]=freqz(h_hanning1,N(2));
+[H_hanning2,hanw2]=freqz(h_hanning2,N(2));
+
+% Figure for hamming
+drawFigureForFirstBullet('Hamming Fs = 100Hz',H_hamming1,hamw1,H_hamming2,hamw2);
 
 % Figure for hanning
-drawFigureForFirstBullet('Hanning',H_hanning1,hanw1,H_hanning2,hanw2);
+drawFigureForFirstBullet('Hanning Fs = 100Hz',H_hanning1,hanw1,H_hanning2,hanw2);
 
 %---------------------------------------------------------------
 %second bullet
-passSingalFromFiltersWithHz(100,H_hamming1,H_hamming2,H_hanning1,H_hanning2);
+passSingalFromFiltersWithHz(100,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
 %---------------------------------------------------------------
 %third bullet
-passSingalFromFiltersWithHz(50,H_hamming1,H_hamming2,H_hanning1,H_hanning2);
+[h_hamming1, h_hamming2, h_hanning1, h_hanning2] = makeFilters(50,Vc,N);
+passSingalFromFiltersWithHz(50,h_hamming1,h_hamming2,h_hanning1,h_hanning2);
 %-------------------------!!FUNCTIONS!!-------------------------
+%function to make the filters
+function [h_hamming1, h_hamming2, h_hanning1, h_hanning2] = makeFilters(Fs,Vc,N)
+    h_hamming1 = fir1(N(1)-1, Vc/(Fs/2),'low',  hamming(N(1)));
+    h_hamming2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hamming(N(2)));
+    h_hanning1 = fir1(N(1)-1, Vc/(Fs/2), 'low', hanning(N(1)));
+    h_hanning2 = fir1(N(2)-1, Vc/(Fs/2), 'low', hanning(N(2)));
+end
 %function for drawing the plots for the first bullet
 function drawFigureForFirstBullet(figureTitle,yLeftPlot,xLeftPlot,yRightPlot,xRightPlot)
     figure;sgtitle(figureTitle);
     subplot(1,2,1);
     plot(linspace(0,1,length(xLeftPlot)), abs(yLeftPlot),'LineWidth',2);
-    grid on;title('Filters Frequency Response');xlabel('Normalize Frequency');ylabel('Magnitude');
+    grid on;title('Filters Frequency Response Ν = 21');xlabel('Normalize Frequency');ylabel('Magnitude');
     subplot(1,2,2);
     plot(linspace(0,1,length(xRightPlot)),abs(yRightPlot),'LineWidth',2);
-    grid on;title('Filters Frequency Response');xlabel('Normalize Frequency');ylabel('Magnitude');
+    grid on;title('Filters Frequency Response Ν = 41');xlabel('Normalize Frequency');ylabel('Magnitude');
 end
 %function for the second and third bullet
 function passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanning2)
@@ -70,7 +72,7 @@ function passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanni
     spectrum_filteredHan2 = fftshift(fft(filteredHan2));
 
     %ploting for hamming
-    figure;sgtitle('Hamming');
+    figure;sgtitle(['Hamming ',num2str(Fs),'Hz']);
     subplot(3,1,1);
     plot(F, abs(X),'LineWidth',2);
     grid on;title('Spectrum X');xlabel('Frequency (Hz)');ylabel('|X(f)|');
@@ -82,7 +84,7 @@ function passSingalFromFiltersWithHz(Fs,H_hamming1,H_hamming2,H_hanning1,H_hanni
     grid on;title('X with filter hanning N = 41');xlabel('Frequency (Hz)');ylabel('|Xfiltered(f)|');
 
     %ploting for hanning
-    figure;sgtitle('Hanning');
+    figure;sgtitle(['Hanning with Fs = ',num2str(Fs),'Hz']);
     subplot(3,1,1);
     plot(F, abs(X),'LineWidth',2);
     grid on;title('X');xlabel('Frequency (Hz)'); ylabel('|X(f)|');
